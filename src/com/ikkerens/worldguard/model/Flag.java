@@ -14,11 +14,11 @@ public enum Flag {
 
     private List< String > possibilities;
 
-    private Flag( String... possibilities ) {
+    private Flag( final String... possibilities ) {
         this.possibilities = Arrays.asList( possibilities );
     }
 
-    public boolean validate( String input ) {
+    public boolean validate( final String input ) {
         return this.possibilities.contains( input.toLowerCase() );
     }
 

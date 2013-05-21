@@ -3,6 +3,7 @@ package com.ikkerens.worldguard;
 import com.ikkerens.worldguard.commands.DefineCommand;
 import com.ikkerens.worldguard.listeners.BlockListener;
 import com.ikkerens.worldguard.storage.StorageHandler;
+
 import com.mbserver.api.MBServerPlugin;
 import com.mbserver.api.Manifest;
 import com.mbserver.api.PluginManager;
@@ -13,12 +14,12 @@ public class WorldGuardPlugin extends MBServerPlugin {
 
     @Override
     public void onEnable() {
-        Config config = this.getConfig();
+        final Config config = this.getConfig();
         this.storage = config.getStorageType().getStorage( this );
         this.storage.init( this );
         this.save();
 
-        PluginManager pm = this.getPluginManager();
+        final PluginManager pm = this.getPluginManager();
 
         pm.registerCommand( "/define", new DefineCommand( this ) );
 

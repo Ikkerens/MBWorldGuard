@@ -1,7 +1,7 @@
 package com.ikkerens.worldguard;
 
 public class Config {
-    private StorageType storage;
+    private final StorageType storage;
 
     public Config() {
         this.storage = StorageType.JSON;

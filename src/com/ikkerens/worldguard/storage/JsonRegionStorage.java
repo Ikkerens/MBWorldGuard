@@ -6,12 +6,13 @@ import java.util.HashMap;
 
 import com.ikkerens.worldguard.model.Region;
 import com.ikkerens.worldguard.util.RangeMap;
+
 import com.mbserver.api.MBServerPlugin;
 import com.mbserver.api.game.Location;
 import com.mbserver.api.game.World;
 
 public class JsonRegionStorage implements StorageHandler {
-    private HashMap< String, Region >                                                                       regions;
+    private final HashMap< String, Region >                                                                 regions;
     private transient HashMap< World, RangeMap< Integer, RangeMap< Integer, RangeMap< Integer, Region >>> > regions_tree;
 
     public JsonRegionStorage() {
@@ -19,11 +20,11 @@ public class JsonRegionStorage implements StorageHandler {
     }
 
     @Override
-    public int init( MBServerPlugin plugin ) {
+    public int init( final MBServerPlugin plugin ) {
         this.regions_tree = new HashMap< World, RangeMap< Integer, RangeMap< Integer, RangeMap< Integer, Region >>> >();
 
         int loaded = 0;
-        for ( Region region : this.regions.values() ) {
+        for ( final Region region : this.regions.values() ) {
             region.init( plugin );
             this.indexRegion( region );
             loaded++;
@@ -33,44 +34,44 @@ public class JsonRegionStorage implements StorageHandler {
     }
 
     @Override
-    public Region getRegion( String name ) {
+    public Region getRegion( final String name ) {
         return this.regions.get( name );
     }
 
     @Override
-    public Region[] getRegion( Location location ) {
-        Collection< Region > regionsC = this.getRegions( location.getWorld(), location.getBlockX(), location.getBlockY(), location.getBlockZ() );
-        Region[] regions = new Region[ regionsC.size() ];
+    public Region[] getRegion( final Location location ) {
+        final Collection< Region > regionsC = this.getRegions( location.getWorld(), location.getBlockX(), location.getBlockY(), location.getBlockZ() );
+        final Region[] regions = new Region[ regionsC.size() ];
         regionsC.toArray( regions );
         return regions;
     }
 
     @Override
-    public void saveRegion( Region region ) {
+    public void saveRegion( final Region region ) {
         this.regions.put( region.getName(), region );
         this.indexRegion( region );
     }
 
     @Override
-    public void deleteRegion( Region region ) {
+    public void deleteRegion( final Region region ) {
 
     }
 
-    private void indexRegion( Region region ) {
+    private void indexRegion( final Region region ) {
         this.addRegion( region );
     }
 
-    private Collection< Region > getRegions( World world, int x, int y, int z ) {
-        Collection< Region > regions = new ArrayList< Region >();
-        for ( RangeMap< Integer, RangeMap< Integer, Region >> subMap : this.regions_tree.get( world ).getInRange( x ) )
-            for ( RangeMap< Integer, Region > subSubMap : subMap.getInRange( y ) )
+    private Collection< Region > getRegions( final World world, final int x, final int y, final int z ) {
+        final Collection< Region > regions = new ArrayList< Region >();
+        for ( final RangeMap< Integer, RangeMap< Integer, Region >> subMap : this.regions_tree.get( world ).getInRange( x ) )
+            for ( final RangeMap< Integer, Region > subSubMap : subMap.getInRange( y ) )
                 regions.addAll( subSubMap.getInRange( z ) );
         return regions;
     }
 
-    private void addRegion( Region region ) {
-        Location min = region.getMinimumLocation();
-        Location max = region.getMaximumLocation();
+    private void addRegion( final Region region ) {
+        final Location min = region.getMinimumLocation();
+        final Location max = region.getMaximumLocation();
 
         RangeMap< Integer, RangeMap< Integer, RangeMap< Integer, Region >>> regions = this.regions_tree.get( min.getWorld() );
 

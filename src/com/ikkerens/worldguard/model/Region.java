@@ -8,35 +8,35 @@ import com.mbserver.api.MBServerPlugin;
 import com.mbserver.api.game.Location;
 
 public class Region {
-    private String                  name;
-    private String                  world;
-    private int[]                   min, max;
-    private int                     priority;
-    private HashMap< Flag, String > flags;
+    private String                        name;
+    private String                        world;
+    private int[]                         min, max;
+    private int                           priority;
+    private final HashMap< Flag, String > flags;
 
-    private transient Location      minL, maxL;
+    private transient Location            minL, maxL;
 
     private Region() {
         this.priority = 1;
         this.flags = new HashMap< Flag, String >();
     }
 
-    public Region( String name, Location min, Location max ) {
+    public Region( final String name, final Location min, final Location max ) {
         this();
         this.name = name;
         this.redefine( min, max );
     }
 
-    public void init( MBServerPlugin plugin ) {
+    public void init( final MBServerPlugin plugin ) {
         this.minL = Constructors.newLocation( plugin.getServer().getWorld( this.world ), this.min[ 0 ], this.min[ 1 ], this.min[ 2 ] );
         this.maxL = Constructors.newLocation( plugin.getServer().getWorld( this.world ), this.max[ 0 ], this.max[ 1 ], this.max[ 2 ] );
 
-        for ( Entry< Flag, String > flagMatch : this.flags.entrySet() )
+        for ( final Entry< Flag, String > flagMatch : this.flags.entrySet() )
             if ( !flagMatch.getKey().validate( flagMatch.getValue() ) )
                 this.flags.put( flagMatch.getKey(), flagMatch.getKey().getDefault() );
     }
 
-    public void redefine( Location min, Location max ) {
+    public void redefine( final Location min, final Location max ) {
         this.world = min.getWorld().getWorldName();
         this.minL = min;
         this.maxL = max;
@@ -60,19 +60,19 @@ public class Region {
         return this.priority;
     }
 
-    public void setPriority( int priority ) {
+    public void setPriority( final int priority ) {
         this.priority = priority;
     }
 
-    public String getFlagValue( Flag flag ) {
+    public String getFlagValue( final Flag flag ) {
         return this.flags.containsKey( flag ) ? this.flags.get( flag ) : flag.getDefault();
     }
 
-    public void setFlag( Flag flag, String value ) {
+    public void setFlag( final Flag flag, final String value ) {
         this.flags.put( flag, value );
     }
 
-    public void clearFlag( Flag flag ) {
+    public void clearFlag( final Flag flag ) {
         this.flags.remove( flag );
     }
 }

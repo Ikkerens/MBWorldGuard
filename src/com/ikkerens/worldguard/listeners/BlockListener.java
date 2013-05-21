@@ -5,19 +5,20 @@ import com.ikkerens.worldguard.WorldGuardPlugin;
 import com.ikkerens.worldguard.model.Flag;
 import com.ikkerens.worldguard.model.FlagOption;
 import com.ikkerens.worldguard.model.MatchedRegion;
+
 import com.mbserver.api.events.BlockEvent;
 import com.mbserver.api.events.EventHandler;
 
 public class BlockListener extends AbstractListener< WorldGuardPlugin > {
 
-    public BlockListener( WorldGuardPlugin plugin ) {
+    public BlockListener( final WorldGuardPlugin plugin ) {
         super( plugin );
     }
 
     @EventHandler
-    public void onBlockEvent( BlockEvent event ) {
-        MatchedRegion rg = new MatchedRegion( this.getPlugin().getStorage(), event.getLocation() );
-        String flag = rg.getFlag( Flag.BUILD );
+    public void onBlockEvent( final BlockEvent event ) {
+        final MatchedRegion rg = new MatchedRegion( this.getPlugin().getStorage(), event.getLocation() );
+        final String flag = rg.getFlag( Flag.BUILD );
 
         if ( FlagOption.DENY.equals( flag ) )
             event.setCancelled( true );
