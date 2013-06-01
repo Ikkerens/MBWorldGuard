@@ -30,7 +30,7 @@ public class WorldGuardPlugin extends MBServerPlugin {
         return this.storage;
     }
 
-    public void save() {
+    private void save() {
         this.saveConfig();
         this.getServer().getConfigurationManager().save( this, this.storage );
     }
