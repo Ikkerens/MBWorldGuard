@@ -3,7 +3,8 @@ jdk:
   - oraclejdk6
 before_script:
   - 'wget https://dl.dropboxusercontent.com/u/55284851/MineBuilder/MBServerApi-beta.jar'
+  - 'wget https://dl.dropboxusercontent.com/u/55284851/MineBuilder/MBWorldEdit.jar'
   - 'find src/ 2>&1 | grep .java > sources.txt'
   - 'mkdir -v classes'
 script:
-  - 'javac -cp ./MBServerApi-beta.jar:. -d classes -sourcepath src @sources.txt'
+  - 'javac -cp ./MBServerApi-beta.jar:./MBWorldEdit.jar:. -d classes -sourcepath src @sources.txt'
