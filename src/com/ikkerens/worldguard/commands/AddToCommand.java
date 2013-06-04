@@ -8,12 +8,12 @@ import com.mbserver.api.game.Player;
 
 public class AddToCommand extends AbstractCommand< WorldGuardPlugin > {
 
-    public AddToCommand( WorldGuardPlugin plugin ) {
+    public AddToCommand( final WorldGuardPlugin plugin ) {
         super( plugin );
     }
 
     @Override
-    protected void execute( String label, Player player, String[] args ) {
+    protected void execute( final String label, final Player player, final String[] args ) {
         if ( ( args.length != 2 ) && ( args.length != 3 ) ) {
             player.sendMessage( "Usage: /" + label + " <region> <player>" );
             return;

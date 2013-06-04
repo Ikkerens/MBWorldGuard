@@ -20,8 +20,10 @@ public class PvpListener extends AbstractListener< WorldGuardPlugin > {
         final MatchedRegion rg = new MatchedRegion( this.getPlugin().getStorage(), event.getLocation() );
         final String flag = rg.getFlag( Flag.PVP );
 
-        if ( FlagOption.DENY.equals( flag ) )
+        if ( FlagOption.DENY.equals( flag ) ) {
+            event.getAttacker().sendMessage( "This is a no-pvp zone." );
             event.setCancelled( true );
+        }
     }
 
 }
