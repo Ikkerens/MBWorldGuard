@@ -6,5 +6,6 @@ public class FlagOption {
     public final static String DEFAULT = "default";
 
     private FlagOption() {
+        throw new UnsupportedOperationException();
     }
 }

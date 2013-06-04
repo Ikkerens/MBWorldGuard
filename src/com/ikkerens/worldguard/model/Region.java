@@ -69,7 +69,7 @@ public class Region {
     }
 
     public void setFlag( final Flag flag, final String value ) {
-        this.flags.put( flag, value );
+        this.flags.put( flag, value.toLowerCase() );
     }
 
     public void clearFlag( final Flag flag ) {
