@@ -20,8 +20,20 @@ public class BlockListener extends AbstractListener< WorldGuardPlugin > {
         final MatchedRegion rg = new MatchedRegion( this.getPlugin().getStorage(), event.getLocation() );
         final String flag = rg.getFlag( Flag.BUILD );
 
-        if ( FlagOption.DENY.equals( flag ) )
+        if ( FlagOption.DENY.equals( flag ) ) {
             event.setCancelled( true );
+            return;
+        }
+
+        if ( FlagOption.OWNERS.equals( flag ) && !rg.isOwner( event.getPlayer().getName() ) ) {
+            event.setCancelled( true );
+            return;
+        }
+
+        if ( FlagOption.MEMBERS.equals( flag ) && !rg.isMember( event.getPlayer().getName() ) ) {
+            event.setCancelled( true );
+            return;
+        }
     }
 
 }

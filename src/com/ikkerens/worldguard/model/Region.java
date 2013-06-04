@@ -1,5 +1,6 @@
 package com.ikkerens.worldguard.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -13,12 +14,15 @@ public class Region {
     private int[]                         min, max;
     private int                           priority;
     private final HashMap< Flag, String > flags;
+    private final ArrayList< String >     owners, members;
 
     private transient Location            minL, maxL;
 
     private Region() {
         this.priority = 1;
         this.flags = new HashMap< Flag, String >();
+        this.owners = new ArrayList< String >();
+        this.members = new ArrayList< String >();
     }
 
     public Region( final String name, final Location min, final Location max ) {
@@ -64,6 +68,10 @@ public class Region {
         this.priority = priority;
     }
 
+    public boolean hasFlag( final Flag flag ) {
+        return this.flags.containsKey( flag );
+    }
+
     public String getFlagValue( final Flag flag ) {
         return this.flags.containsKey( flag ) ? this.flags.get( flag ) : flag.getDefault();
     }
@@ -74,5 +82,13 @@ public class Region {
 
     public void clearFlag( final Flag flag ) {
         this.flags.remove( flag );
+    }
+
+    public boolean isOwner( final String name ) {
+        return this.owners.contains( name.toLowerCase() );
+    }
+
+    public boolean isMember( final String name ) {
+        return this.isOwner( name ) || this.members.contains( name.toLowerCase() );
     }
 }
