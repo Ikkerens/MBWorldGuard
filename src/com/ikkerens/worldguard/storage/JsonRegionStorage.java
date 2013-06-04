@@ -57,10 +57,6 @@ public class JsonRegionStorage implements StorageHandler {
 
     }
 
-    private void indexRegion( final Region region ) {
-        this.addRegion( region );
-    }
-
     private Collection< Region > getRegions( final World world, final int x, final int y, final int z ) {
         final Collection< Region > regions = new ArrayList< Region >();
         for ( final RangeMap< Integer, RangeMap< Integer, Region >> subMap : this.regions_tree.get( world ).getInRange( x ) )
@@ -69,7 +65,7 @@ public class JsonRegionStorage implements StorageHandler {
         return regions;
     }
 
-    private void addRegion( final Region region ) {
+    private void indexRegion( final Region region ) {
         final Location min = region.getMinimumLocation();
         final Location max = region.getMaximumLocation();
 
