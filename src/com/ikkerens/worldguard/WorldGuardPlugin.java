@@ -1,7 +1,9 @@
 package com.ikkerens.worldguard;
 
 import com.ikkerens.worldguard.commands.DefineCommand;
+import com.ikkerens.worldguard.commands.FlagCommand;
 import com.ikkerens.worldguard.listeners.BlockListener;
+import com.ikkerens.worldguard.listeners.PvpListener;
 import com.ikkerens.worldguard.storage.StorageHandler;
 
 import com.mbserver.api.MBServerPlugin;
@@ -14,16 +16,22 @@ public class WorldGuardPlugin extends MBServerPlugin {
 
     @Override
     public void onEnable() {
+        this.getLogger().info( "Loading regions..." );
+
         final Config config = this.getConfig();
         this.storage = config.getStorageType().getStorage( this );
-        this.storage.init( this );
+        final int loaded = this.storage.init( this );
         this.save();
 
         final PluginManager pm = this.getPluginManager();
 
         pm.registerCommand( "/define", new DefineCommand( this ) );
+        pm.registerCommand( "/flag", new FlagCommand( this ) );
 
         pm.registerEventHandler( new BlockListener( this ) );
+        pm.registerEventHandler( new PvpListener( this ) );
+
+        this.getLogger().info( String.format( "Finished loading %d regions.", loaded ) );
     }
 
     public StorageHandler getStorage() {
