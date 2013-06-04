@@ -19,10 +19,10 @@ public enum Flag {
     }
 
     public boolean validate( final String input ) {
-        return this.possibilities.contains( input.toLowerCase() );
+        return ( this.possibilities.size() == 0 ) || this.possibilities.contains( input.toLowerCase() );
     }
 
     public String getDefault() {
-        return this.possibilities.get( 0 );
+        return this.possibilities.size() == 0 ? "" : this.possibilities.get( 0 );
     }
 }
