@@ -100,10 +100,8 @@ public class Region {
         if ( this.owners.contains( name ) )
             throw new IllegalArgumentException( String.format( "%s is already an owner.", name ) );
 
-        if ( this.members.contains( name ) )
-            return;
-
-        this.members.add( name );
+        if ( !this.members.contains( name ) )
+            this.members.add( name );
     }
 
     public void addOwner( String name ) {
@@ -112,9 +110,21 @@ public class Region {
         if ( this.members.contains( name ) )
             this.members.remove( name );
 
-        if ( this.owners.contains( name ) )
-            return;
+        if ( !this.owners.contains( name ) )
+            this.owners.add( name );
+    }
 
-        this.owners.add( name );
+    public void removeMember( String name ) {
+        name = name.toLowerCase();
+
+        if ( this.members.contains( name ) )
+            this.members.remove( name );
+    }
+
+    public void removeOwner( String name ) {
+        name = name.toLowerCase();
+
+        if ( this.owners.contains( name ) )
+            this.owners.remove( name );
     }
 }
