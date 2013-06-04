@@ -2,6 +2,7 @@ package com.ikkerens.worldguard;
 
 import com.ikkerens.worldguard.commands.DefineCommand;
 import com.ikkerens.worldguard.commands.FlagCommand;
+import com.ikkerens.worldguard.commands.AddToCommand;
 import com.ikkerens.worldguard.listeners.BlockListener;
 import com.ikkerens.worldguard.listeners.PvpListener;
 import com.ikkerens.worldguard.storage.StorageHandler;
@@ -27,6 +28,7 @@ public class WorldGuardPlugin extends MBServerPlugin {
 
         pm.registerCommand( "/define", new DefineCommand( this ) );
         pm.registerCommand( "/flag", new FlagCommand( this ) );
+        pm.registerCommand( "/addowner", new String[] { "/addmember" }, new AddToCommand( this ) );
 
         pm.registerEventHandler( new BlockListener( this ) );
         pm.registerEventHandler( new PvpListener( this ) );

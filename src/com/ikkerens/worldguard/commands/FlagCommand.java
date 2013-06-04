@@ -26,6 +26,11 @@ public class FlagCommand extends AbstractCommand< WorldGuardPlugin > {
             return;
         }
 
+        if ( !region.isOwner( player.getName() ) ) {
+            player.sendMessage( "You are not a owner of that region." );
+            return;
+        }
+
         Flag flag;
         try {
             flag = Flag.valueOf( args[ 1 ].toUpperCase() );

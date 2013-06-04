@@ -9,6 +9,8 @@ import com.mbserver.api.MBServerPlugin;
 import com.mbserver.api.game.Location;
 
 public class Region {
+    private static final int              DEFAULT_PRIORITY = 1;
+
     private String                        name;
     private String                        world;
     private int[]                         min, max;
@@ -19,7 +21,7 @@ public class Region {
     private transient Location            minL, maxL;
 
     private Region() {
-        this.priority = 1;
+        this.priority = DEFAULT_PRIORITY;
         this.flags = new HashMap< Flag, String >();
         this.owners = new ArrayList< String >();
         this.members = new ArrayList< String >();
@@ -90,5 +92,29 @@ public class Region {
 
     public boolean isMember( final String name ) {
         return this.isOwner( name ) || this.members.contains( name.toLowerCase() );
+    }
+
+    public void addMember( String name ) {
+        name = name.toLowerCase();
+
+        if ( this.owners.contains( name ) )
+            throw new IllegalArgumentException( String.format( "%s is already an owner.", name ) );
+
+        if ( this.members.contains( name ) )
+            return;
+
+        this.members.add( name );
+    }
+
+    public void addOwner( String name ) {
+        name = name.toLowerCase();
+
+        if ( this.members.contains( name ) )
+            this.members.remove( name );
+
+        if ( this.owners.contains( name ) )
+            return;
+
+        this.owners.add( name );
     }
 }
