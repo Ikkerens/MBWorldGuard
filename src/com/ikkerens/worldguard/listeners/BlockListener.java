@@ -25,12 +25,12 @@ public class BlockListener extends AbstractListener< WorldGuardPlugin > {
             return;
         }
 
-        if ( FlagOption.OWNERS.equals( flag ) && !rg.isOwner( event.getPlayer().getName() ) ) {
+        if ( FlagOption.MEMBERS.equals( flag ) && !rg.isMember( event.getPlayer().getName() ) ) {
             event.setCancelled( true );
             return;
         }
 
-        if ( FlagOption.MEMBERS.equals( flag ) && !rg.isMember( event.getPlayer().getName() ) ) {
+        if ( FlagOption.OWNERS.equals( flag ) && !rg.isOwner( event.getPlayer().getName() ) ) {
             event.setCancelled( true );
             return;
         }
