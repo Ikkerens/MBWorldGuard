@@ -19,7 +19,7 @@ public enum Flag {
         @Override
         public boolean canUse( final Config config, final Player player ) {
             if ( !config.isUsingMove() ) {
-                player.sendMessage( String.format( "Move events are disabled in the configuration." ) );
+                player.sendMessage( "Move events are disabled in the configuration." );
                 return false;
             }
 
@@ -30,7 +30,7 @@ public enum Flag {
         @Override
         public boolean canUse( final Config config, final Player player ) {
             if ( !config.isUsingMove() ) {
-                player.sendMessage( String.format( "Move events are disabled in the configuration." ) );
+                player.sendMessage( "Move events are disabled in the configuration." );
                 return false;
             }
 
