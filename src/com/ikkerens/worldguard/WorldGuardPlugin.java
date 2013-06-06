@@ -5,7 +5,7 @@ import com.ikkerens.worldguard.commands.DefineCommand;
 import com.ikkerens.worldguard.commands.FlagCommand;
 import com.ikkerens.worldguard.commands.RemoveFromCommand;
 import com.ikkerens.worldguard.listeners.BlockListener;
-import com.ikkerens.worldguard.listeners.EntryListener;
+import com.ikkerens.worldguard.listeners.MoveListener;
 import com.ikkerens.worldguard.listeners.PvpListener;
 import com.ikkerens.worldguard.storage.StorageHandler;
 
@@ -35,7 +35,7 @@ public class WorldGuardPlugin extends MBServerPlugin {
 
         pm.registerEventHandler( new BlockListener( this ) );
         pm.registerEventHandler( new PvpListener( this ) );
-        pm.registerEventHandler( new EntryListener( this ) );
+        pm.registerEventHandler( new MoveListener( this ) );
 
         this.getLogger().info( String.format( "Finished loading %d regions.", loaded ) );
     }

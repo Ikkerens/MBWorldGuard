@@ -11,7 +11,8 @@ import java.util.List;
 public enum Flag {
     PVP ( ALLOW, DENY ),
     BUILD ( MEMBERS, OWNERS, ALLOW, DENY ),
-    ENTRY ( ALLOW, DENY, OWNERS, MEMBERS );
+    ENTRY ( ALLOW, DENY, OWNERS, MEMBERS ),
+    LEAVE ( ALLOW, DENY, OWNERS, MEMBERS );
 
     private List< String > possibilities;
 
