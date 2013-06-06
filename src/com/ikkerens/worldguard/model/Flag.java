@@ -8,16 +8,44 @@ import static com.ikkerens.worldguard.model.FlagOption.OWNERS;
 import java.util.Arrays;
 import java.util.List;
 
+import com.ikkerens.worldguard.Config;
+
+import com.mbserver.api.game.Player;
+
 public enum Flag {
     PVP ( ALLOW, DENY ),
     BUILD ( MEMBERS, OWNERS, ALLOW, DENY ),
-    ENTRY ( ALLOW, DENY, OWNERS, MEMBERS ),
-    LEAVE ( ALLOW, DENY, OWNERS, MEMBERS );
+    ENTRY ( ALLOW, DENY, OWNERS, MEMBERS ) {
+        @Override
+        public boolean canUse( final Config config, final Player player ) {
+            if ( !config.isUsingMove() ) {
+                player.sendMessage( String.format( "Move events are disabled in the configuration." ) );
+                return false;
+            }
+
+            return true;
+        }
+    },
+    LEAVE ( ALLOW, DENY, OWNERS, MEMBERS ) {
+        @Override
+        public boolean canUse( final Config config, final Player player ) {
+            if ( !config.isUsingMove() ) {
+                player.sendMessage( String.format( "Move events are disabled in the configuration." ) );
+                return false;
+            }
+
+            return true;
+        }
+    };
 
     private List< String > possibilities;
 
     private Flag( final String... possibilities ) {
         this.possibilities = Arrays.asList( possibilities );
+    }
+
+    public boolean canUse( final Config config, final Player player ) {
+        return true;
     }
 
     public boolean validate( final String input ) {

@@ -1,6 +1,7 @@
 package com.ikkerens.worldguard.commands;
 
 import com.ikkerens.worldedit.handlers.AbstractCommand;
+import com.ikkerens.worldguard.Config;
 import com.ikkerens.worldguard.WorldGuardPlugin;
 import com.ikkerens.worldguard.model.Flag;
 import com.ikkerens.worldguard.model.Region;
@@ -38,6 +39,9 @@ public class FlagCommand extends AbstractCommand< WorldGuardPlugin > {
             player.sendMessage( String.format( "Flag %s does not exist.", args[ 1 ] ) );
             return;
         }
+
+        if ( !flag.canUse( (Config) this.getPlugin().getConfig(), player ) )
+            return;
 
         if ( args.length == 2 ) {
             // Set to default

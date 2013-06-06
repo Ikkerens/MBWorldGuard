@@ -35,7 +35,9 @@ public class WorldGuardPlugin extends MBServerPlugin {
 
         pm.registerEventHandler( new BlockListener( this ) );
         pm.registerEventHandler( new PvpListener( this ) );
-        pm.registerEventHandler( new MoveListener( this ) );
+
+        if ( config.isUsingMove() )
+            pm.registerEventHandler( new MoveListener( this ) );
 
         this.getLogger().info( String.format( "Finished loading %d regions.", loaded ) );
     }
