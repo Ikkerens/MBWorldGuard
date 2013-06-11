@@ -29,12 +29,7 @@ public enum Flag {
     LEAVE ( ALLOW, DENY, OWNERS, MEMBERS ) {
         @Override
         public boolean canUse( final Config config, final Player player ) {
-            if ( !config.isUsingMove() ) {
-                player.sendMessage( "Move events are disabled in the configuration." );
-                return false;
-            }
-
-            return true;
+            return ENTRY.canUse( config, player );
         }
     };
 
