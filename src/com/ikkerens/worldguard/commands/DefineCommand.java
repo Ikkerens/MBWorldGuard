@@ -22,6 +22,9 @@ public class DefineCommand extends AbstractCommand< WorldGuardPlugin > {
         if ( sel.isValid() ) {
             final Region region = new Region( args[ 0 ], sel.getMinimumPosition(), sel.getMaximumPosition() );
             this.getPlugin().getStorage().saveRegion( region );
+
+            if ( label.equalsIgnoreCase( "/claim" ) )
+                region.addOwner( player.getName() );
         } else
             player.sendMessage( NEED_SELECTION );
     }

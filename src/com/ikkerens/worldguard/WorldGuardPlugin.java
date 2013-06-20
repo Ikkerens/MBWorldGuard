@@ -28,6 +28,7 @@ public class WorldGuardPlugin extends MBServerPlugin {
 
         final PluginManager pm = this.getPluginManager();
 
+        pm.registerCommand( "/claim", new DefineCommand( this ) );
         pm.registerCommand( "/define", new DefineCommand( this ) );
         pm.registerCommand( "/flag", new FlagCommand( this ) );
         pm.registerCommand( "/addowner", new String[] { "/addmember" }, new AddToCommand( this ) );
