@@ -17,6 +17,9 @@ public class BlockListener extends AbstractListener< WorldGuardPlugin > {
 
     @EventHandler
     public void onBlockEvent( final BlockEvent event ) {
+        if ( event.getPlayer().hasPermission( "ikkerens.worldguard.admin" ) )
+            return;
+
         final MatchedRegion rg = new MatchedRegion( this.getPlugin().getStorage(), event.getLocation() );
         final GroupState build = rg.getFlagValue( Flags.BUILD );
 

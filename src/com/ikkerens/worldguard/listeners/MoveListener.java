@@ -22,6 +22,9 @@ public class MoveListener extends AbstractListener< WorldGuardPlugin > {
 
     @EventHandler
     public void onMove( final PlayerMoveEvent event ) {
+        if ( event.getPlayer().hasPermission( "ikkerens.worldguard.admin" ) )
+            return;
+
         final MatchedRegion rg = new MatchedRegion( this.getPlugin().getStorage(), event.getTargetLocation() );
         final GroupState entry = rg.getFlagValue( Flags.ENTRY );
         final GroupState leave = rg.getFlagValue( Flags.LEAVE );
