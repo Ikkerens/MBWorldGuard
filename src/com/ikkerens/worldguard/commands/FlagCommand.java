@@ -47,11 +47,11 @@ public class FlagCommand extends AbstractCommand< WorldGuardPlugin > {
         if ( args.length == 2 ) {
             // Set to default
             region.clearFlag( flag );
-            player.sendMessage( String.format( "Cleared flag %s of %s.", flag.getName().toLowerCase(), region.getName() ) );
+            player.sendMessage( String.format( "Cleared flag %s of %s.", flag.getName(), region.getName() ) );
         } else
             try {
                 region.setFlag( flag, flag.parseInput( args[ 2 ] ) );
-                player.sendMessage( String.format( "Set flag %s of %s to %s.", flag.getName().toLowerCase(), region.getName(), args[ 2 ] ) );
+                player.sendMessage( String.format( "Set flag %s of %s to %s.", flag.getName(), region.getName(), args[ 2 ] ) );
             } catch ( final InvalidInputException e ) {
                 player.sendMessage( e.getMessage() );
             }
