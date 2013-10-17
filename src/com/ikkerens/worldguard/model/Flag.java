@@ -1,53 +1,32 @@
 package com.ikkerens.worldguard.model;
 
-import static com.ikkerens.worldguard.model.FlagOption.ALLOW;
-import static com.ikkerens.worldguard.model.FlagOption.DENY;
-import static com.ikkerens.worldguard.model.FlagOption.MEMBERS;
-import static com.ikkerens.worldguard.model.FlagOption.OWNERS;
-
-import java.util.Arrays;
-import java.util.List;
-
 import com.ikkerens.worldguard.Config;
+import com.ikkerens.worldguard.exceptions.InvalidInputException;
 
-import com.mbserver.api.game.Player;
+public abstract class Flag< T > {
+    private final String name;
+    private final T      defaultValue;
 
-public enum Flag {
-    PVP ( ALLOW, DENY ),
-    BUILD ( MEMBERS, OWNERS, ALLOW, DENY ),
-    ENTRY ( ALLOW, DENY, OWNERS, MEMBERS ) {
-        @Override
-        public boolean canUse( final Config config, final Player player ) {
-            if ( !config.isUsingMove() ) {
-                player.sendMessage( "Move events are disabled in the configuration." );
-                return false;
-            }
-
-            return true;
-        }
-    },
-    LEAVE ( ALLOW, DENY, OWNERS, MEMBERS ) {
-        @Override
-        public boolean canUse( final Config config, final Player player ) {
-            return ENTRY.canUse( config, player );
-        }
-    };
-
-    private List< String > possibilities;
-
-    private Flag( final String... possibilities ) {
-        this.possibilities = Arrays.asList( possibilities );
+    public Flag( final String name, final T defaultValue ) {
+        this.name = name;
+        this.defaultValue = defaultValue;
     }
 
-    public boolean canUse( final Config config, final Player player ) {
+    public final String getName() {
+        return this.name;
+    }
+
+    public final T getDefaultValue() {
+        return this.defaultValue;
+    }
+
+    public abstract T parseInput( String input ) throws InvalidInputException;
+
+    public String valueToString( final T input ) {
+        return input.toString();
+    }
+
+    public boolean canUse( final Config config ) {
         return true;
-    }
-
-    public boolean validate( final String input ) {
-        return ( this.possibilities.size() == 0 ) || this.possibilities.contains( input.toLowerCase() );
-    }
-
-    public String getDefault() {
-        return this.possibilities.size() == 0 ? "" : this.possibilities.get( 0 );
     }
 }

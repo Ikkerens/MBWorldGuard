@@ -24,13 +24,13 @@ public class MatchedRegion {
         this.regions = this.regions.descendingMap();
     }
 
-    public String getFlag( final Flag flag ) {
+    public < F extends Flag< V >, V > V getFlagValue( final F flag ) {
         for ( final ArrayList< Region > regions : this.regions.values() )
             for ( final Region region : regions )
                 if ( region.hasFlag( flag ) )
                     return region.getFlagValue( flag );
 
-        return flag.getDefault();
+        return flag.getDefaultValue();
     }
 
     public boolean isOwner( final String name ) {

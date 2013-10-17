@@ -2,9 +2,9 @@ package com.ikkerens.worldguard.listeners;
 
 import com.ikkerens.worldedit.handlers.AbstractListener;
 import com.ikkerens.worldguard.WorldGuardPlugin;
-import com.ikkerens.worldguard.model.Flag;
-import com.ikkerens.worldguard.model.FlagOption;
+import com.ikkerens.worldguard.model.Flags;
 import com.ikkerens.worldguard.model.MatchedRegion;
+import com.ikkerens.worldguard.model.flagtypes.GroupStateFlag.GroupState;
 
 import com.mbserver.api.events.BlockEvent;
 import com.mbserver.api.events.EventHandler;
@@ -18,23 +18,21 @@ public class BlockListener extends AbstractListener< WorldGuardPlugin > {
     @EventHandler
     public void onBlockEvent( final BlockEvent event ) {
         final MatchedRegion rg = new MatchedRegion( this.getPlugin().getStorage(), event.getLocation() );
-        final String flag = rg.getFlag( Flag.BUILD );
+        final GroupState build = rg.getFlagValue( Flags.BUILD );
 
         boolean deny = false;
 
-        if ( FlagOption.DENY.equals( flag ) )
+        if ( build == GroupState.DENY )
             deny = true;
 
-        else if ( FlagOption.MEMBERS.equals( flag ) && !rg.isMember( event.getPlayer().getName() ) )
+        else if ( ( build == GroupState.MEMBERS ) && !rg.isMember( event.getPlayer().getName() ) )
             deny = !rg.isMember( event.getPlayer().getName() );
 
-        else if ( FlagOption.OWNERS.equals( flag ) && !rg.isOwner( event.getPlayer().getName() ) )
+        else if ( ( build == GroupState.OWNERS ) && !rg.isOwner( event.getPlayer().getName() ) )
             deny = !rg.isOwner( event.getPlayer().getName() );
 
-        if ( deny ) {
+        if ( deny )
             event.setCancelled( true );
-            return;
-        }
     }
 
 }

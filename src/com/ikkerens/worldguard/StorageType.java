@@ -6,7 +6,7 @@ import com.ikkerens.worldguard.storage.StorageHandler;
 import com.mbserver.api.MBServerPlugin;
 
 public enum StorageType {
-    JSON ( JsonRegionStorage.class );
+    JSON( JsonRegionStorage.class );
 
     private Class< ? extends StorageHandler > clazz;
 

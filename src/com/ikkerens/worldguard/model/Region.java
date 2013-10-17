@@ -2,27 +2,33 @@ package com.ikkerens.worldguard.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.logging.Logger;
+
+import com.ikkerens.worldguard.exceptions.InvalidInputException;
 
 import com.mbserver.api.Constructors;
 import com.mbserver.api.MBServerPlugin;
 import com.mbserver.api.game.Location;
 
 public class Region {
-    private static final int              DEFAULT_PRIORITY = 1;
+    private static final int                         DEFAULT_PRIORITY = 1;
 
-    private String                        name;
-    private String                        world;
-    private int[]                         min, max;
-    private int                           priority;
-    private final HashMap< Flag, String > flags;
-    private final ArrayList< String >     owners, members;
+    private String                                   name;
+    private String                                   world;
+    private int[]                                    min, max;
+    private int                                      priority;
+    private final Map< String, String >              flags;
+    private final ArrayList< String >                owners, members;
 
-    private transient Location            minL, maxL;
+    private final transient Map< Flag< ? >, Object > flagValues;
+    private transient Location                       minL, maxL;
 
     private Region() {
         this.priority = DEFAULT_PRIORITY;
-        this.flags = new HashMap< Flag, String >();
+        this.flags = new HashMap< String, String >();
+        this.flagValues = new HashMap< Flag< ? >, Object >();
         this.owners = new ArrayList< String >();
         this.members = new ArrayList< String >();
     }
@@ -37,9 +43,18 @@ public class Region {
         this.minL = Constructors.newLocation( plugin.getServer().getWorld( this.world ), this.min[ 0 ], this.min[ 1 ], this.min[ 2 ] );
         this.maxL = Constructors.newLocation( plugin.getServer().getWorld( this.world ), this.max[ 0 ], this.max[ 1 ], this.max[ 2 ] );
 
-        for ( final Entry< Flag, String > flagMatch : this.flags.entrySet() )
-            if ( !flagMatch.getKey().validate( flagMatch.getValue() ) )
-                this.flags.put( flagMatch.getKey(), flagMatch.getKey().getDefault() );
+        for ( final Entry< String, String > flagMatch : this.flags.entrySet() )
+            try {
+                final Flag< ? > flag = Flags.flags.get( flagMatch.getKey().toLowerCase() );
+                if ( flag == null ) {
+                    Logger.getLogger( "Minebuilder" ).warning( String.format( "Flag '%s' does not exist!", flagMatch.getKey() ) );
+                    continue;
+                }
+
+                this.flagValues.put( flag, flag.parseInput( flagMatch.getValue() ) );
+            } catch ( final InvalidInputException e ) {
+                Logger.getLogger( "Minebuilder" ).warning( String.format( "%s: %s", flagMatch.getKey(), e.getMessage() ) );
+            }
     }
 
     public void redefine( final Location min, final Location max ) {
@@ -70,20 +85,23 @@ public class Region {
         this.priority = priority;
     }
 
-    public boolean hasFlag( final Flag flag ) {
+    public boolean hasFlag( final Flag< ? > flag ) {
         return this.flags.containsKey( flag );
     }
 
-    public String getFlagValue( final Flag flag ) {
-        return this.flags.containsKey( flag ) ? this.flags.get( flag ) : flag.getDefault();
+    @SuppressWarnings( "unchecked" )
+    public < F extends Flag< V >, V > V getFlagValue( final F flag ) {
+        return (V) this.flagValues.get( flag );
     }
 
-    public void setFlag( final Flag flag, final String value ) {
-        this.flags.put( flag, value.toLowerCase() );
+    public < F extends Flag< V >, V > void setFlag( final F flag, final V value ) {
+        this.flagValues.put( flag, value );
+        this.flags.put( flag.getName(), flag.valueToString( value ) );
     }
 
-    public void clearFlag( final Flag flag ) {
-        this.flags.remove( flag );
+    public void clearFlag( final Flag< ? > flag ) {
+        this.flagValues.remove( flag );
+        this.flags.remove( flag.getName() );
     }
 
     public boolean isOwner( final String name ) {
