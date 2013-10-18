@@ -15,7 +15,7 @@ import com.ikkerens.worldguard.model.flagtypes.StringArrayFlag;
 import com.ikkerens.worldguard.model.flagtypes.StringFlag;
 
 public abstract class Flags {
-    public static final StateFlag               EXPLOSIONS   = new StateFlag( "allow-explosions", State.ALLOW );
+    public static final StateFlag               EXPLOSIONS   = new StateFlag( "explosions", State.ALLOW );
     public static final StateFlag               PVP          = new StateFlag( "pvp", State.ALLOW );
     public static final GroupStateFlag          BUILD        = new GroupStateFlag( "build", GroupState.MEMBERS );
     public static final GroupStateFlag          CHEST_ACCESS = new GroupStateFlag( "chest-access", GroupState.MEMBERS );
