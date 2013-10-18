@@ -15,40 +15,39 @@ import com.ikkerens.worldguard.model.flagtypes.StringArrayFlag;
 import com.ikkerens.worldguard.model.flagtypes.StringFlag;
 
 public abstract class Flags {
-    public static final StateFlag               EXPLOSIONS    = new StateFlag( "allow-explosions", State.ALLOW );
-    public static final StateFlag               PVP           = new StateFlag( "pvp", State.ALLOW );
-    public static final GroupStateFlag          BUILD         = new GroupStateFlag( "build", GroupState.MEMBERS );
-    public static final GroupStateFlag          CHEST_ACCESS  = new GroupStateFlag( "chest-access", GroupState.MEMBERS );
-    public static final StateFlag               COPPER_WIRING = new StateFlag( "copper-wiring", State.ALLOW );
-    public static final GroupStateFlag          INTERACT      = new GroupStateFlag( "interact", GroupState.ALLOW );
-    public static final GroupStateFlag          ENTRY         = new GroupStateFlag( "entry", GroupState.ALLOW ) {
-                                                                  @Override
-                                                                  public boolean canUse( final Config config ) {
-                                                                      return config.isUsingMove();
-                                                                  }
-                                                              };
-    public static final GroupStateFlag          LEAVE         = new GroupStateFlag( "leave", GroupState.ALLOW ) {
-                                                                  @Override
-                                                                  public boolean canUse( final Config config ) {
-                                                                      return config.isUsingMove();
-                                                                  }
-                                                              };
-    public static final StringFlag              GREETING      = new StringFlag( "greeting", null ) {
-                                                                  @Override
-                                                                  public boolean canUse( final Config config ) {
-                                                                      return config.isUsingMove();
-                                                                  }
-                                                              };
-    public static final StringFlag              FAREWELL      = new StringFlag( "farewell", null ) {
-                                                                  @Override
-                                                                  public boolean canUse( final Config config ) {
-                                                                      return config.isUsingMove();
-                                                                  }
-                                                              };
-    public static final GameModeFlag            GAMEMODE      = new GameModeFlag( "gamemode", null );
-    public static final StringArrayFlag         ALLOWED_CMDS  = new StringArrayFlag( "allowed-cmds" );
-    public static final StringArrayFlag         BLOCKED_CMDS  = new StringArrayFlag( "blocked-cmds" );
-    public static final GroupStateFlag          CHAT          = new GroupStateFlag( "chat", GroupState.ALLOW );
+    public static final StateFlag               EXPLOSIONS   = new StateFlag( "allow-explosions", State.ALLOW );
+    public static final StateFlag               PVP          = new StateFlag( "pvp", State.ALLOW );
+    public static final GroupStateFlag          BUILD        = new GroupStateFlag( "build", GroupState.MEMBERS );
+    public static final GroupStateFlag          CHEST_ACCESS = new GroupStateFlag( "chest-access", GroupState.MEMBERS );
+    public static final GroupStateFlag          INTERACT     = new GroupStateFlag( "interact", GroupState.ALLOW );
+    public static final GroupStateFlag          ENTRY        = new GroupStateFlag( "entry", GroupState.ALLOW ) {
+                                                                 @Override
+                                                                 public boolean canUse( final Config config ) {
+                                                                     return config.isUsingMove();
+                                                                 }
+                                                             };
+    public static final GroupStateFlag          LEAVE        = new GroupStateFlag( "leave", GroupState.ALLOW ) {
+                                                                 @Override
+                                                                 public boolean canUse( final Config config ) {
+                                                                     return config.isUsingMove();
+                                                                 }
+                                                             };
+    public static final StringFlag              GREETING     = new StringFlag( "greeting", null ) {
+                                                                 @Override
+                                                                 public boolean canUse( final Config config ) {
+                                                                     return config.isUsingMove();
+                                                                 }
+                                                             };
+    public static final StringFlag              FAREWELL     = new StringFlag( "farewell", null ) {
+                                                                 @Override
+                                                                 public boolean canUse( final Config config ) {
+                                                                     return config.isUsingMove();
+                                                                 }
+                                                             };
+    public static final GameModeFlag            GAMEMODE     = new GameModeFlag( "gamemode", null );
+    public static final StringArrayFlag         ALLOWED_CMDS = new StringArrayFlag( "allowed-cmds" );
+    public static final StringArrayFlag         BLOCKED_CMDS = new StringArrayFlag( "blocked-cmds" );
+    public static final GroupStateFlag          CHAT         = new GroupStateFlag( "chat", GroupState.ALLOW );
 
     public static final Map< String, Flag< ? >> flags;
 
