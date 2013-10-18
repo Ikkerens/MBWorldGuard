@@ -13,7 +13,7 @@ public class MatchedRegion {
 
     public MatchedRegion( final StorageHandler storage, final Location location ) {
         this.regions = new TreeMap< Integer, ArrayList< Region >>();
-        final Region[] regions = storage.getRegion( location );
+        final Region[] regions = storage.getRegions( location );
 
         for ( final Region region : regions ) {
             if ( !this.regions.containsKey( region.getPriority() ) )

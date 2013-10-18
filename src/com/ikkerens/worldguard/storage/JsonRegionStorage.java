@@ -39,7 +39,7 @@ public class JsonRegionStorage implements StorageHandler {
     }
 
     @Override
-    public Region[] getRegion( final Location location ) {
+    public Region[] getRegions( final Location location ) {
         final Collection< Region > regionsC = this.getRegions( location.getWorld(), location.getBlockX(), location.getBlockY(), location.getBlockZ() );
         final Region[] regions = new Region[ regionsC.size() ];
         regionsC.toArray( regions );

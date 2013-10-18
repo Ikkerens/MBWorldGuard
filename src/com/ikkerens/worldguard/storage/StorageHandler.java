@@ -10,7 +10,7 @@ public interface StorageHandler {
 
     public Region getRegion( String name );
 
-    public Region[] getRegion( Location location );
+    public Region[] getRegions( Location location );
 
     public void saveRegion( Region region );
 
