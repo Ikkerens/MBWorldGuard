@@ -33,21 +33,14 @@ public class MatchedRegion {
         return flag.getDefaultValue();
     }
 
-    public boolean isOwner( final String name ) {
+    public int getMembership( final String name ) {
         for ( final ArrayList< Region > regions : this.regions.values() )
             for ( final Region region : regions )
                 if ( region.isOwner( name ) )
-                    return true;
+                    return 2;
+                else if ( region.isMember( name ) )
+                    return 1;
 
-        return false;
-    }
-
-    public boolean isMember( final String name ) {
-        for ( final ArrayList< Region > regions : this.regions.values() )
-            for ( final Region region : regions )
-                if ( region.isMember( name ) )
-                    return true;
-
-        return false;
+        return 0;
     }
 }

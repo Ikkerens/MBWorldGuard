@@ -5,11 +5,14 @@ import com.ikkerens.worldguard.model.Flag;
 import com.ikkerens.worldguard.model.flagtypes.GroupStateFlag.GroupState;
 
 public class GroupStateFlag extends Flag< GroupState > {
+    /**
+     * GroupState is done in this ordering to allow comparison through {@link #ordinal()}
+     */
     public static enum GroupState {
         ALLOW,
-        DENY,
+        MEMBERS,
         OWNERS,
-        MEMBERS;
+        DENY;
     }
 
     public GroupStateFlag( final String name, final GroupState defaultValue ) {
