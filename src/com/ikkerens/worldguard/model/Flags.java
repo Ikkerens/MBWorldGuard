@@ -32,19 +32,24 @@ public abstract class Flags {
                                                                      return config.isUsingMove();
                                                                  }
                                                              };
-    public static final StringFlag              GREETING     = new StringFlag( "greeting", null ) {
+    public static final StringFlag              GREETING     = new StringFlag( "greeting", null ) { // TODO
                                                                  @Override
                                                                  public boolean canUse( final Config config ) {
                                                                      return config.isUsingMove();
                                                                  }
-                                                             };                                                         // TODO
-    public static final StringFlag              FAREWELL     = new StringFlag( "farewell", null ) {
+                                                             };
+    public static final StringFlag              FAREWELL     = new StringFlag( "farewell", null ) { // TODO
                                                                  @Override
                                                                  public boolean canUse( final Config config ) {
                                                                      return config.isUsingMove();
                                                                  }
-                                                             };                                                         // TODO
-    public static final GameModeFlag            GAMEMODE     = new GameModeFlag( "gamemode", null );                    // TODO
+                                                             };
+    public static final GameModeFlag            GAMEMODE     = new GameModeFlag( "gamemode", null ) { // TODO
+                                                                 @Override
+                                                                 public boolean canUse( final Config config ) {
+                                                                     return config.isUsingMove();
+                                                                 }
+                                                             };
     public static final StringArrayFlag         ALLOWED_CMDS = new StringArrayFlag( "allowed-cmds" );                   // TODO
     public static final StringArrayFlag         BLOCKED_CMDS = new StringArrayFlag( "blocked-cmds" );                   // TODO
     public static final GroupStateFlag          CHAT         = new GroupStateFlag( "chat", GroupState.ALLOW );

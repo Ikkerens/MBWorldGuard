@@ -26,6 +26,8 @@ public class WorldGuardPlugin extends MBServerPlugin {
         this.storage = config.getStorageType().getStorage( this );
         final int loaded = this.storage.init( this );
         this.save();
+        
+        this.getLogger().info( String.format( "Finished loading %d regions.", loaded ) );
 
         final PluginManager pm = this.getPluginManager();
 
@@ -41,8 +43,6 @@ public class WorldGuardPlugin extends MBServerPlugin {
 
         if ( config.isUsingMove() )
             pm.registerEventHandler( new MoveListener( this ) );
-
-        this.getLogger().info( String.format( "Finished loading %d regions.", loaded ) );
     }
 
     public StorageHandler getStorage() {
