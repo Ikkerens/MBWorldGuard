@@ -26,7 +26,7 @@ public class WorldGuardPlugin extends MBServerPlugin {
         this.storage = config.getStorageType().getStorage( this );
         final int loaded = this.storage.init( this );
         this.save();
-        
+
         this.getLogger().info( String.format( "Finished loading %d regions.", loaded ) );
 
         final PluginManager pm = this.getPluginManager();

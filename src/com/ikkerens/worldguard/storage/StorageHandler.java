@@ -1,5 +1,7 @@
 package com.ikkerens.worldguard.storage;
 
+import java.util.Collection;
+
 import com.ikkerens.worldguard.model.Region;
 
 import com.mbserver.api.MBServerPlugin;
@@ -10,7 +12,7 @@ public interface StorageHandler {
 
     public Region getRegion( String name );
 
-    public Region[] getRegions( Location location );
+    public Collection< Region > getRegions( Location location );
 
     public void saveRegion( Region region );
 

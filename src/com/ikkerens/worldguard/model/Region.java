@@ -8,22 +8,19 @@ import java.util.logging.Logger;
 
 import com.ikkerens.worldguard.exceptions.InvalidInputException;
 
-import com.mbserver.api.Constructors;
 import com.mbserver.api.MBServerPlugin;
 import com.mbserver.api.game.Location;
 
 public class Region {
     private static final int                         DEFAULT_PRIORITY = 1;
 
-    private String                                   name;
-    private String                                   world;
-    private int[]                                    min, max;
+    private transient String                         name;
+    private Location                                 min, max;
     private int                                      priority;
     private final Map< String, String >              flags;
     private final ArrayList< String >                owners, members;
 
     private final transient Map< Flag< ? >, Object > flagValues;
-    private transient Location                       minL, maxL;
 
     private Region() {
         this.priority = DEFAULT_PRIORITY;
@@ -40,9 +37,6 @@ public class Region {
     }
 
     public void init( final MBServerPlugin plugin ) {
-        this.minL = Constructors.newLocation( plugin.getServer().getWorld( this.world ), this.min[ 0 ], this.min[ 1 ], this.min[ 2 ] );
-        this.maxL = Constructors.newLocation( plugin.getServer().getWorld( this.world ), this.max[ 0 ], this.max[ 1 ], this.max[ 2 ] );
-
         for ( final Entry< String, String > flagMatch : this.flags.entrySet() )
             try {
                 final Flag< ? > flag = Flags.flags.get( flagMatch.getKey().toLowerCase() );
@@ -58,23 +52,27 @@ public class Region {
     }
 
     public void redefine( final Location min, final Location max ) {
-        this.world = min.getWorld().getWorldName();
-        this.minL = min;
-        this.maxL = max;
-        this.min = new int[] { min.getBlockX(), min.getBlockY(), min.getBlockZ() };
-        this.max = new int[] { max.getBlockX(), max.getBlockY(), max.getBlockZ() };
+        this.min = min;
+        this.max = max;
     }
 
     public String getName() {
         return this.name;
     }
 
+    public void setName( final String name ) {
+        if ( this.name != null )
+            throw new RuntimeException( "This region already has a name!" );
+
+        this.name = name;
+    }
+
     public Location getMinimumLocation() {
-        return this.minL;
+        return this.min;
     }
 
     public Location getMaximumLocation() {
-        return this.maxL;
+        return this.max;
     }
 
     public int getPriority() {
