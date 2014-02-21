@@ -30,7 +30,7 @@ public class MoveListener extends AbstractListener< WorldGuardPlugin > {
         final MatchedRegion rg = new MatchedRegion( this.getPlugin().getStorage(), event.getTargetLocation() );
         final GroupState entry = rg.getFlagValue( Flags.ENTRY );
         final GroupState leave = rg.getFlagValue( Flags.LEAVE );
-        final int membership = rg.getMembership( player.getName() );
+        final int membership = rg.getMembership( player.getLoginName() );
 
         if ( membership < entry.ordinal() ) {
             event.getPlayer().sendMessage( NO_ENTRY );

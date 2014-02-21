@@ -24,7 +24,7 @@ public class DefineCommand extends AbstractCommand< WorldGuardPlugin > {
             this.getPlugin().getStorage().saveRegion( region );
 
             if ( label.equalsIgnoreCase( "/claim" ) )
-                region.addOwner( player.getName() );
+                region.addOwner( player.getLoginName() );
 
             player.sendMessage( String.format( "The region named %s has been created%s",
                 region.getName(),

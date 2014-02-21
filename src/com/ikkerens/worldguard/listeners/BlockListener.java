@@ -27,7 +27,7 @@ public class BlockListener extends AbstractListener< WorldGuardPlugin > {
         final MatchedRegion rg = new MatchedRegion( this.getPlugin().getStorage(), event.getLocation() );
         final GroupState build = rg.getFlagValue( Flags.BUILD );
 
-        if ( rg.getMembership( event.getPlayer().getName() ) < build.ordinal() )
+        if ( rg.getMembership( event.getPlayer().getLoginName() ) < build.ordinal() )
             event.setCancelled( true );
     }
 
@@ -46,7 +46,7 @@ public class BlockListener extends AbstractListener< WorldGuardPlugin > {
             return;
 
         final MatchedRegion rg = new MatchedRegion( this.getPlugin().getStorage(), event.getLocation() );
-        final int membership = rg.getMembership( event.getPlayer().getName() );
+        final int membership = rg.getMembership( event.getPlayer().getLoginName() );
 
         if ( ( membership < rg.getFlagValue( Flags.INTERACT ).ordinal() ) || ( ( event instanceof ChestOpenEvent ) && ( membership < rg.getFlagValue( Flags.CHEST_ACCESS ).ordinal() ) ) )
             event.setCancelled( true );

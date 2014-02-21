@@ -21,7 +21,7 @@ public class ChatListener extends AbstractListener< WorldGuardPlugin > {
 
         final MatchedRegion rg = new MatchedRegion( this.getPlugin().getStorage(), event.getPlayer().getLocation() );
 
-        if ( rg.getMembership( event.getPlayer().getName() ) < rg.getFlagValue( Flags.CHAT ).ordinal() )
+        if ( rg.getMembership( event.getPlayer().getLoginName() ) < rg.getFlagValue( Flags.CHAT ).ordinal() )
             event.setCancelled( true );
     }
 
