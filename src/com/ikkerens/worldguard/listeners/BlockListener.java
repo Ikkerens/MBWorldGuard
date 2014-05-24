@@ -27,8 +27,10 @@ public class BlockListener extends AbstractListener< WorldGuardPlugin > {
         final MatchedRegion rg = new MatchedRegion( this.getPlugin().getStorage(), event.getLocation() );
         final GroupState build = rg.getFlagValue( Flags.BUILD );
 
-        if ( rg.getMembership( event.getPlayer().getLoginName() ) < build.ordinal() )
+        if ( rg.getMembership( event.getPlayer().getLoginName() ) < build.ordinal() ) {
+            event.getPlayer().sendMessage( "You do not have permission to build there!" );
             event.setCancelled( true );
+        }
     }
 
     @EventHandler
